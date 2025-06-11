@@ -3,6 +3,8 @@ TBD
 
 ## Immediatie improvements 
 
+- [ ] add koin
+
 - [ ] separate parent packages to separate modules
 
 - [ ] add real api calls
