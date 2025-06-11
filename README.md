@@ -2,22 +2,23 @@
 TBD
 
 ## Immediatie improvements 
-[ ] separate parent packages to separate modules
 
-[ ] add real api calls
+- [ ] separate parent packages to separate modules
 
-[ ] add example tests
+- [ ] add real api calls
+
+- [ ] add example tests
 
 ## Further improvements
 
-[ ] add rest of tests
+- [ ] add rest of tests
 
-[ ] add bottom nav bar
+- [ ] add bottom nav bar
 
-[ ] add data store; store favourites
+- [ ] add data store; store favourites
 
-[ ] add favourite functionality
+- [ ] add favourite functionality
 
 ## Exploratory work
 
-[ ] 'make your own' feature by using android ai sdks
+- [ ] 'make your own' feature by using android ai sdks
