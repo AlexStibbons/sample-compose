@@ -3,7 +3,7 @@ TBD
 
 ## Immediatie improvements 
 
-- [ ] add koin
+- [x] add koin
 
 - [ ] separate parent packages to separate modules
 
