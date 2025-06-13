@@ -12,7 +12,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -50,8 +49,14 @@ internal fun LoginScreen(
     val state by loginVM.uiState.collectAsStateWithLifecycle()
     when (val uiState = state) {
         LoginViewModel.LoginState.Error -> ShowAlertDialog("Something went wrong...") {  }
-        LoginViewModel.LoginState.Loading -> LoginContent { one, two -> loginVM.processInput(one, two) }
-        LoginViewModel.LoginState.Success -> navController.navigate(NavItem.HomeList)
+        LoginViewModel.LoginState.Initial -> LoginContent { one, two -> loginVM.processInput(one, two) }
+        LoginViewModel.LoginState.Success -> {
+            loginVM.resetState()
+            navController.navigate(NavItem.HomeList)
+            // clear from backstack when navigated away from screen
+        }
+
+        LoginViewModel.LoginState.Loading -> {}
     }
 }
 

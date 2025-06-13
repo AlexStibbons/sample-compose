@@ -48,11 +48,6 @@ internal class HomeListViewModel(
         }
     }
 
-    fun fetchContFlow() = viewModelScope.launch {
-        // collect continuous flow and then
-        // update state with new value item
-    }
-
     sealed class HomeState {
         data object Loading : HomeState()
         data class Error(val msg: String) : HomeState()
