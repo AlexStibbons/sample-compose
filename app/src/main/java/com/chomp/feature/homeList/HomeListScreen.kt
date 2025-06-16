@@ -46,7 +46,7 @@ internal fun HomeListScreen(
             items = screenState.data,
             onItemClick = { id ->  navController.navigate(NavItem.ItemDetails(id)) } // MVI for actions, not direct
         )
-        is HomeListViewModel.HomeState.Error -> ShowAlertDialog("Something went wrong...") {  }
+        is HomeListViewModel.HomeState.Error -> ShowAlertDialog("Something went wrong...")
         HomeListViewModel.HomeState.Loading -> { }
         is HomeListViewModel.HomeState.NewItem -> { }
     }

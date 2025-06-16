@@ -48,7 +48,7 @@ internal fun LoginScreen(
 
     val state by loginVM.uiState.collectAsStateWithLifecycle()
     when (val uiState = state) {
-        LoginViewModel.LoginState.Error -> ShowAlertDialog("Something went wrong...") {  }
+        LoginViewModel.LoginState.Error -> ShowAlertDialog("Something went wrong...")
         LoginViewModel.LoginState.Initial -> LoginContent { one, two -> loginVM.processInput(one, two) }
         LoginViewModel.LoginState.Success -> {
             loginVM.resetState()

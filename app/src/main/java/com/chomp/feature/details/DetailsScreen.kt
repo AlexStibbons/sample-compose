@@ -42,7 +42,7 @@ internal fun DetailsScreen(
                 .fillMaxWidth()
         )
         when (val uiState = state) {
-            DetailsViewModel.DetailsState.FlowComplete -> ShowAlertDialog("Flow is complete") {  }
+            DetailsViewModel.DetailsState.FlowComplete -> ShowAlertDialog("Flow is complete")
             is DetailsViewModel.DetailsState.ItemReceived -> Item(uiState.data)
             DetailsViewModel.DetailsState.Loading -> {}
         }

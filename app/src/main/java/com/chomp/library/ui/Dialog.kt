@@ -23,6 +23,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,8 +37,17 @@ import com.chomp.R
 
 
 @Composable
-fun ShowCustomDialog(onDismiss: () -> Unit) {
-    Dialog(onDismiss) {
+fun ShowCustomDialog(
+    onDismiss: (() -> Unit)? = null
+) {
+    val shouldDismiss = rememberSaveable { mutableStateOf(false) }
+
+    if (shouldDismiss.value) return
+
+    Dialog(onDismissRequest = {
+        shouldDismiss.value = true
+        onDismiss?.invoke()
+    }) {
         Card(
             shape = RoundedCornerShape(16.dp)
         ) {
@@ -75,13 +86,19 @@ fun ShowCustomDialog(onDismiss: () -> Unit) {
                     modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 8.dp),
                 )
                 Button(
-                    onClick = onDismiss,
+                    onClick = {
+                        shouldDismiss.value = true
+                        onDismiss?.invoke()
+                              },
                     modifier = Modifier.padding(8.dp),
                 ) {
                     Text("Update Tonight")
                 }
                 TextButton(
-                    onClick = onDismiss,
+                    onClick = {
+                        shouldDismiss.value = true
+                        onDismiss?.invoke()
+                              } ,
                     modifier = Modifier.padding(8.dp),
                 ) {
                     Text(style = MaterialTheme.typography.bodySmall, text = "View Released Notes")
@@ -97,10 +114,17 @@ fun ShowCustomDialog(onDismiss: () -> Unit) {
 @Composable
 fun ShowAlertDialog(
     text: String? = null,
-    onDismiss: () -> Unit
+    onDismiss: (() -> Unit)? = null
 ) {
+    val shouldDismiss = rememberSaveable { mutableStateOf(false) }
+
+    if (shouldDismiss.value) return
+
     BasicAlertDialog (
-        onDismissRequest = onDismiss,
+        onDismissRequest = {
+            shouldDismiss.value = true
+            onDismiss?.invoke()
+                           },
     ) {
         Surface(
             modifier = Modifier
@@ -117,7 +141,10 @@ fun ShowAlertDialog(
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 TextButton(
-                    onClick = onDismiss,
+                    onClick = {
+                        shouldDismiss.value = true
+                        onDismiss?.invoke()
+                              },
                     modifier = Modifier.align(Alignment.End)
                 ) {
                     Text("Ok")
