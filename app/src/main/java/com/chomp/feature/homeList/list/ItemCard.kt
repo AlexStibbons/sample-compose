@@ -3,6 +3,7 @@ package com.chomp.feature.homeList.list
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,12 +31,15 @@ import com.chomp.library.data.Faker
 @Preview
 @Composable
 fun ItemCard(
-    item: Faker = Faker(1, "haha", "hihi", R.drawable.ic_star)
+    item: Faker = Faker(1, "haha", "hihi", R.drawable.ic_star),
+    onClickAction: ((Int) -> Unit)? = null
 ) {
 
     Card(
         shape = RoundedCornerShape(16.dp),
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable { onClickAction?.invoke(item.id) },
         border = BorderStroke(1.dp, Color.LightGray)
     ) {
         Column(

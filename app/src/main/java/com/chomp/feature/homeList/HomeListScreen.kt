@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.chomp.feature.homeList.list.ItemCard
 import com.chomp.library.data.FAKE_DATA
@@ -25,9 +24,8 @@ import com.chomp.library.ui.GRID_CELL
 import com.chomp.library.ui.LIST_ITEM_SPACING
 import com.chomp.library.ui.SCREEN_PADDING
 import com.chomp.library.ui.ShowAlertDialog
+import com.chomp.navigation.NavItem
 import org.koin.androidx.compose.koinViewModel
-import org.koin.core.context.loadKoinModules
-import org.koin.dsl.module
 
 
 @Composable
@@ -44,7 +42,10 @@ internal fun HomeListScreen(
    val state by homeViewModel.uiState.collectAsStateWithLifecycle()
 
     when (val screenState = state) {
-        is HomeListViewModel.HomeState.DataList -> HomeListDataScreen(screenState.data)
+        is HomeListViewModel.HomeState.DataList -> HomeListDataScreen(
+            items = screenState.data,
+            onItemClick = { id ->  navController.navigate(NavItem.ItemDetails(id)) } // MVI for actions, not direct
+        )
         is HomeListViewModel.HomeState.Error -> ShowAlertDialog("Something went wrong...") {  }
         HomeListViewModel.HomeState.Loading -> { }
         is HomeListViewModel.HomeState.NewItem -> { }
@@ -58,7 +59,8 @@ internal fun HomeListScreen(
 )
 @Composable
 private fun HomeListDataScreen(
-    items: List<Faker> = FAKE_DATA
+    items: List<Faker> = FAKE_DATA,
+    onItemClick: ((Int) -> Unit)? = null
 ) {
     Column(
         modifier = Modifier
@@ -84,7 +86,7 @@ private fun HomeListDataScreen(
                 items = items,
                 key = { it.id }
             ) { faker ->
-                ItemCard(faker)
+                ItemCard(faker) { onItemClick?.invoke(faker.id) }
             }
         }
     }

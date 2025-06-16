@@ -32,13 +32,15 @@ internal class DetailsViewModel(
 
     private fun fetchContFlow() = viewModelScope.launch {
         _state.update { DetailsState.Loading }
+
         fetchDataFlow()
             .onCompletion {
-            _state.update { DetailsState.FlowComplete }
-        }
+                _state.update { DetailsState.FlowComplete }
+            }
             .collectLatest { item ->
-            _state.update { DetailsState.ItemReceived(item) }
-        }
+                _state.update { DetailsState.ItemReceived(item) }
+            }
+
     }
 
     sealed class DetailsState {

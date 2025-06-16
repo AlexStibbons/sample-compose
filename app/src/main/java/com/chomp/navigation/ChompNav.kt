@@ -5,6 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
+import com.chomp.feature.details.DetailsScreen
 import com.chomp.feature.homeList.HomeListScreen
 import com.chomp.feature.login.LoginScreen
 import kotlinx.serialization.Serializable
@@ -44,6 +46,14 @@ fun ChompNavHost(
         composable<NavItem.Login> { LoginScreen(navController) }
 
         composable<NavItem.HomeList> { HomeListScreen(navController) }
+
+        composable<NavItem.ItemDetails> {
+            val args = it.toRoute<NavItem.ItemDetails>()
+            DetailsScreen(
+                navController = navController,
+                id = args.id
+            )
+        }
 
     }
 
